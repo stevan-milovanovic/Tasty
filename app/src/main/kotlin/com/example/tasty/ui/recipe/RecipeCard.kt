@@ -17,7 +17,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -55,7 +54,7 @@ fun RecipeCard(
 			modifier = Modifier
 				.width(width)
 				.padding(top = 8.dp),
-			color = Color(0xFF3E5481),
+			color = MaterialTheme.colorScheme.onTertiary,
 			lineHeight = 18.sp,
 			textAlign = TextAlign.Start,
 			maxLines = 3,
@@ -72,12 +71,12 @@ fun RecipeCard(
 				imageVector = Icons.Filled.AccessTime,
 				contentDescription = stringResource(R.string.cooking_time),
 				modifier = Modifier.size(16.dp),
-				tint = Color(0xFF3E5481)
+				tint = MaterialTheme.colorScheme.onTertiary
 			)
 			Text(
 				text = timeText,
 				modifier = Modifier.padding(start = 4.dp),
-				color = Color(0xFF9FA5C0),
+				color = MaterialTheme.colorScheme.tertiary,
 				textAlign = TextAlign.Start,
 				maxLines = 1,
 				style = MaterialTheme.typography.bodySmall

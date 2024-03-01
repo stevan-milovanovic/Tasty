@@ -1,5 +1,6 @@
 package com.example.tasty.data.network
 
+import android.util.Log
 import com.example.tasty.data.network.model.Recipe
 import com.squareup.moshi.JsonClass
 import javax.inject.Inject
@@ -26,6 +27,11 @@ data class NetworkResponse<T>(
 class TastyRetrofit @Inject constructor(
 	private val tastyNetworkApi: TastyNetworkApi
 ) : NetworkDataSource {
+
+	companion object {
+		private const val TAG = "Tasty Network Layer"
+	}
+
 	override suspend fun getRecipes(): List<Recipe> {
 		return try {
 			val response = tastyNetworkApi.getRecipes()
@@ -36,8 +42,8 @@ class TastyRetrofit @Inject constructor(
 				listOf()
 			}
 		} catch (e: Exception) {
+			Log.e(TAG, "Unexpected network error", e)
 			throw e
-			listOf()
 		}
 	}
 }

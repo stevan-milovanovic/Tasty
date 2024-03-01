@@ -23,7 +23,7 @@ internal object NetworkModule {
 
 	@Provides
 	@Singleton
-	fun provideJokeApi(builder: Retrofit.Builder): TastyNetworkApi = builder
+	fun provideTastyNetworkApi(builder: Retrofit.Builder): TastyNetworkApi = builder
 		.build()
 		.create(TastyNetworkApi::class.java)
 

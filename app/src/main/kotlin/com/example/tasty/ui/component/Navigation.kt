@@ -82,16 +82,14 @@ fun TastyNavigationBar(
 @ThemePreviews
 @Composable
 fun TastyNavigationPreview() {
-	val items = listOf("For you", "Saved", "Interests")
+	val items = listOf("For you", "Saved")
 	val icons = listOf(
 		TastyIcons.UpcomingBorder,
-		TastyIcons.BookmarksBorder,
-		TastyIcons.Grid3x3,
+		TastyIcons.BookmarksBorder
 	)
 	val selectedIcons = listOf(
 		TastyIcons.Upcoming,
-		TastyIcons.Bookmarks,
-		TastyIcons.Grid3x3,
+		TastyIcons.Bookmarks
 	)
 
 	TastyTheme {
