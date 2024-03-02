@@ -5,48 +5,33 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.tasty.R
 import com.example.tasty.data.local.model.Recipe
 import com.example.tasty.ui.screen.common.ErrorScreen
 import com.example.tasty.ui.screen.common.LoadingScreen
-import com.example.tasty.ui.theme.TastyIcons.ArrowBack
-import com.example.tasty.ui.theme.TastyIcons.Bookmark
-import com.example.tasty.ui.theme.TastyIcons.BookmarkBorder
 import com.example.tasty.ui.theme.TastyTheme
 
 @Composable
 fun RecipeScreen(
+	uiState: RecipeUiState,
+	updateBookmarkedList: (Int, Boolean) -> Unit,
 	onBackClick: () -> Unit,
-	viewModel: RecipeViewModel = hiltViewModel()
 ) {
-	val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-
 	when (uiState) {
 		RecipeUiState.Error -> ErrorScreen()
 		RecipeUiState.Loading -> LoadingScreen()
 		is RecipeUiState.Success -> {
-			val successUiState = (uiState as RecipeUiState.Success)
-
 			RecipeScreenContent(
-				recipe = successUiState.recipe,
-				isRecipeBookmarked = successUiState.isRecipeBookmarked,
+				recipe = uiState.recipe,
+				isRecipeBookmarked = uiState.isRecipeBookmarked,
 				onBackClick = onBackClick,
-				onBookmarkClick = viewModel::updateBookmarkedList
+				onBookmarkClick = updateBookmarkedList
 			)
 		}
 	}
@@ -103,43 +88,30 @@ private fun RecipeScreenContent(
 	}
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun RecipeDetailsTopBar(
-	isRecipeBookmarked: Boolean,
-	onBackClick: () -> Unit,
-	onBookmarkClick: (Boolean) -> Unit
-) {
-	TopAppBar(
-		title = {
-			Text(
-				text = stringResource(id = R.string.recipe_details),
-				maxLines = 1
-			)
-		},
-		navigationIcon = {
-			IconButton(onClick = onBackClick) {
-				Icon(
-					ArrowBack,
-					stringResource(id = R.string.back),
-				)
-			}
-		},
-		actions = {
-			IconButton(onClick = { onBookmarkClick(!isRecipeBookmarked) }) {
-				Icon(
-					imageVector = if (isRecipeBookmarked) Bookmark else BookmarkBorder,
-					contentDescription = stringResource(R.string.bookmark_recipe)
-				)
-			}
-		},
-	)
-}
-
 @Preview
 @Composable
-fun RecipeDetailsTopBarPreview() {
+private fun RecipeScreenContentPreview() {
 	TastyTheme {
-		RecipeDetailsTopBar(false, {}) {}
+		RecipeScreenContent(
+			recipe = Recipe(
+				1,
+				"Maple Bacon Marshmallow Fluff Sweet Potato",
+				"This One-Pot Cheeseburger Pasta is a delightful twist on a classic favorite. With its savory flavors and easy clean-up, this dish is perfect for busy weeknights and satisfying comfort food cravings.",
+				"test",
+				"",
+				"buzzfeed, chicken, creamy, dinner, lemon, one-pan, quick and easy, tasty",
+				"Under 30 minutes",
+				listOf(
+					"In a large bowl, add the flour, sugar, salt, baking powder, and baking soda and whisk to combine.",
+					"In a medium bowl or liquid measuring cup, add the buttermilk, melted butter, and egg yolks and whisk to combine.",
+					"Add the buttermilk mixture to the dry ingredients and gently fold with a rubber spatula until just combined.",
+					"Add the egg whites and fold until just combined. Be sure not to overmix. Some lumps are okay.",
+					"Let the batter rest for 15-30 minutes at room temperature.",
+				)
+			),
+			isRecipeBookmarked = false,
+			onBackClick = { },
+			onBookmarkClick = { _, _ -> }
+		)
 	}
 }

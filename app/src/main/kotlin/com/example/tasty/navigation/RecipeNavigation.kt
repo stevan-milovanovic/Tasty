@@ -4,13 +4,17 @@ import androidx.annotation.VisibleForTesting
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.scaleOut
+import androidx.compose.runtime.getValue
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.tasty.ui.screen.recipe.RecipeScreen
+import com.example.tasty.ui.screen.recipe.RecipeViewModel
 
 @VisibleForTesting
 internal const val RECIPE_ID_ARG = "recipeId"
@@ -39,7 +43,13 @@ fun NavGraphBuilder.recipeScreen(
 		exitTransition = { scaleOutOfContainer() },
 		popExitTransition = { scaleOutOfContainer() }
 	) {
-		RecipeScreen(onBackClick = onBackClick)
+		val viewModel: RecipeViewModel = hiltViewModel()
+		val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+		RecipeScreen(
+			uiState = uiState,
+			updateBookmarkedList = viewModel::updateBookmarkedList,
+			onBackClick = onBackClick,
+		)
 	}
 }
 

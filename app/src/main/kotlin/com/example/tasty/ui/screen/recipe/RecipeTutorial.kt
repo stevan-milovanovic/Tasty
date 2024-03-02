@@ -20,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -35,7 +36,7 @@ private const val PLAY_ANIMATION_DELAY_MILLIS = 1750
 fun RecipeTutorial(
 	recipe: Recipe
 ) {
-	var shouldPlayVideo by remember { mutableStateOf(false) }
+	var shouldPlayVideo by rememberSaveable { mutableStateOf(false) }
 
 	Box(
 		modifier = Modifier
