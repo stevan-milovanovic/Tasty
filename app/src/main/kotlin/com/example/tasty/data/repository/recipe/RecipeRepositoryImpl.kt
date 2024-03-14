@@ -1,4 +1,4 @@
-package com.example.tasty.data
+package com.example.tasty.data.repository.recipe
 
 import com.example.tasty.data.local.dao.RecipeDao
 import com.example.tasty.data.local.model.Recipe

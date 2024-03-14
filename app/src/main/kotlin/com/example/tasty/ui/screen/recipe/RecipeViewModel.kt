@@ -3,8 +3,8 @@ package com.example.tasty.ui.screen.recipe
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.tasty.data.RecipeRepository
-import com.example.tasty.data.UserDataRepository
+import com.example.tasty.data.repository.recipe.RecipeRepository
+import com.example.tasty.data.repository.userData.UserDataRepository
 import com.example.tasty.data.local.model.Recipe
 import com.example.tasty.data.local.model.UserData
 import com.example.tasty.navigation.RecipeArgs

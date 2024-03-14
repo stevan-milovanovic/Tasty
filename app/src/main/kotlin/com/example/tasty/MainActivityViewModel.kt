@@ -2,7 +2,7 @@ package com.example.tasty
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.tasty.data.UserDataRepository
+import com.example.tasty.data.repository.userData.UserDataRepository
 import com.example.tasty.navigation.FOR_YOU_ROUTE
 import com.example.tasty.navigation.ONBOARDING_ROUTE
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -2,11 +2,11 @@ package com.example.tasty.ui.screen.foryou
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.tasty.data.RecipeRepository
-import com.example.tasty.data.UserDataRepository
+import com.example.tasty.data.repository.recipe.RecipeRepository
+import com.example.tasty.data.repository.userData.UserDataRepository
 import com.example.tasty.ui.Result
 import com.example.tasty.ui.asResult
-import com.example.tasty.ui.recipe.RecipesUiState
+import com.example.tasty.ui.component.recipe.RecipesUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted

@@ -28,7 +28,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.tasty.R
 import com.example.tasty.data.local.model.Recipe
-import com.example.tasty.ui.recipe.RecipeImage
+import com.example.tasty.ui.component.recipe.RecipeImage
 
 private const val PLAY_ANIMATION_DELAY_MILLIS = 1750
 

@@ -1,4 +1,4 @@
-package com.example.tasty.ui.recipe
+package com.example.tasty.ui.component.recipe
 
 import com.example.tasty.data.local.model.Recipe
 

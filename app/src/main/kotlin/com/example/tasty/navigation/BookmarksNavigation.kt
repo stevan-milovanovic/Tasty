@@ -7,7 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
-import com.example.tasty.ui.recipe.RecipesUiState
+import com.example.tasty.ui.component.recipe.RecipesUiState
 import com.example.tasty.ui.screen.bookmark.BookmarksScreen
 import com.example.tasty.ui.screen.bookmark.BookmarksViewModel
 

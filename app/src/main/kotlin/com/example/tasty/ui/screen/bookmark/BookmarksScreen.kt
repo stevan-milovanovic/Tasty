@@ -9,8 +9,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.tasty.data.local.model.Recipe
-import com.example.tasty.ui.recipe.RecipesList
-import com.example.tasty.ui.recipe.RecipesUiState
+import com.example.tasty.ui.component.recipe.RecipesList
+import com.example.tasty.ui.component.recipe.RecipesUiState
 import com.example.tasty.ui.screen.common.ErrorScreen
 import com.example.tasty.ui.screen.common.LoadingScreen
 import com.example.tasty.ui.theme.TastyTheme

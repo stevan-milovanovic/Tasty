@@ -1,4 +1,4 @@
-package com.example.tasty.ui.recipe
+package com.example.tasty.ui.component.recipe
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable

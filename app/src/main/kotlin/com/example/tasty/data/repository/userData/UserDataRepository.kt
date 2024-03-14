@@ -1,4 +1,4 @@
-package com.example.tasty.data
+package com.example.tasty.data.repository.userData
 
 import com.example.tasty.data.local.model.UserData
 import kotlinx.coroutines.flow.Flow

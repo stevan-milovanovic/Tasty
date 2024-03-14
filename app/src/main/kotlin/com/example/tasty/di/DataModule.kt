@@ -2,10 +2,10 @@ package com.example.tasty.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.tasty.data.RecipeRepository
-import com.example.tasty.data.RecipeRepositoryImpl
-import com.example.tasty.data.UserDataRepository
-import com.example.tasty.data.UserDataRepositoryImpl
+import com.example.tasty.data.repository.recipe.RecipeRepository
+import com.example.tasty.data.repository.recipe.RecipeRepositoryImpl
+import com.example.tasty.data.repository.userData.UserDataRepository
+import com.example.tasty.data.repository.userData.UserDataRepositoryImpl
 import com.example.tasty.data.local.TastyDatabase
 import com.example.tasty.data.local.dao.RecipeDao
 import com.example.tasty.data.local.dao.UserDataDao
