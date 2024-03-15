@@ -85,6 +85,8 @@ dependencies {
 	//coil
 	implementation("io.coil-kt:coil-compose:2.5.0")
 	implementation("io.coil-kt:coil-svg:2.5.0")
+    //html text
+    implementation("de.charlex.compose.material3:material3-html-text:2.0.0-beta01")
 
 	//exoplayer
 	val mediaVersion = "1.3.0"

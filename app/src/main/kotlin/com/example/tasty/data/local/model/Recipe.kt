@@ -15,10 +15,10 @@ data class Recipe(
 	@PrimaryKey
 	val id: Int,
 	val name: String,
-	val description: String,
+	val description: String?,
 	val thumbnailUrl: String,
 	val videoUrl: String?,
-	val keywords: String,
+	val keywords: String?,
 	val totalTimeNeeded: String?,
-	val instructions: List<String>
+	val instructions: List<String>?
 )

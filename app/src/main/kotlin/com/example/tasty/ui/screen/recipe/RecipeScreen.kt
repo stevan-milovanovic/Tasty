@@ -16,6 +16,7 @@ import com.example.tasty.data.local.model.Recipe
 import com.example.tasty.ui.screen.common.ErrorScreen
 import com.example.tasty.ui.screen.common.LoadingScreen
 import com.example.tasty.ui.theme.TastyTheme
+import de.charlex.compose.material3.HtmlText
 
 @Composable
 fun RecipeScreen(
@@ -67,22 +68,27 @@ private fun RecipeScreenContent(
 						.fillMaxWidth(),
 					style = MaterialTheme.typography.titleLarge
 				)
-				Text(
-					text = recipe.description,
-					modifier = Modifier
-						.fillMaxWidth()
-						.padding(horizontal = 16.dp)
-						.padding(bottom = 8.dp),
-					style = MaterialTheme.typography.bodySmall
-				)
-				RecipeKeywords(
-					keywords = recipe.keywords,
-					modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp)
-				)
-				RecipeInstructions(
-					instructions = recipe.instructions,
-					modifier = Modifier.padding(horizontal = 16.dp)
-				)
+                recipe.description?.let {
+                    HtmlText(
+                        text = it,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp)
+                            .padding(bottom = 8.dp),
+                    )
+                }
+                recipe.keywords?.let {
+                    RecipeKeywords(
+                        keywords = it,
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp)
+                    )
+                }
+                recipe.instructions?.let {
+                    RecipeInstructions(
+                        instructions = it,
+                        modifier = Modifier.padding(horizontal = 16.dp)
+                    )
+                }
 			}
 		}
 	}
