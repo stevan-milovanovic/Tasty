@@ -2,9 +2,7 @@
 
 
 
-<p>
-    Tasty App is a fully functional Android app built entirely with Kotlin and Jetpack Compose. This repository serves as an Android project architecture showcase. It follows Android design and development best practices and is intended to be a useful reference for developers.
-</p>
+Tasty App is a fully functional Android app built entirely with Kotlin and Jetpack Compose. This repository serves as an Android project architecture showcase. It follows Android design and development best practices and is intended to be a useful reference for developers. You can read more about this app in [this blog][blog].
 
 
 <p>
@@ -63,3 +61,5 @@ App starts with [Onboarding screen](app/src/main/kotlin/com/example/tasty/ui/scr
 [room]: https://developer.android.com/jetpack/androidx/releases/room
 
 [exoplayer]: https://developer.android.com/media/media3/exoplayer
+
+[blog]: https://www.interventure.info/blog/exploring-tasty-from-idea-to-modern-android-app/
