@@ -5,6 +5,6 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class Instruction(
-	@Json(name = "display_text")
-	val text: String
+    @Json(name = "display_text")
+    val text: String
 )

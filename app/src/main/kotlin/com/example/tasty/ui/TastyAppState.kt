@@ -22,77 +22,76 @@ import kotlinx.coroutines.flow.stateIn
 
 @Composable
 fun rememberTastyAppState(
-	networkMonitor: NetworkMonitor,
-	coroutineScope: CoroutineScope = rememberCoroutineScope(),
-	navController: NavHostController = rememberNavController(),
+    networkMonitor: NetworkMonitor,
+    coroutineScope: CoroutineScope = rememberCoroutineScope(),
+    navController: NavHostController = rememberNavController(),
 ): TastyAppState {
-	return remember(
-		navController,
-		coroutineScope,
-		networkMonitor,
-	) {
-		TastyAppState(
-			navController,
-			coroutineScope,
-			networkMonitor,
-		)
-	}
+    return remember(
+        navController,
+        coroutineScope,
+        networkMonitor,
+    ) {
+        TastyAppState(
+            navController,
+            coroutineScope,
+            networkMonitor,
+        )
+    }
 }
 
 @Stable
 class TastyAppState(
-	val navController: NavHostController,
-	coroutineScope: CoroutineScope,
-	networkMonitor: NetworkMonitor,
+    val navController: NavHostController,
+    coroutineScope: CoroutineScope,
+    networkMonitor: NetworkMonitor,
 ) {
-	val currentDestination: NavDestination?
-		@Composable get() = navController
-			.currentBackStackEntryAsState().value?.destination
+    val currentDestination: NavDestination?
+        @Composable get() = navController
+            .currentBackStackEntryAsState().value?.destination
 
-	val isOffline = networkMonitor.isOnline
-		.map(Boolean::not)
-		.stateIn(
-			scope = coroutineScope,
-			started = SharingStarted.WhileSubscribed(5_000),
-			initialValue = false,
-		)
+    val isOffline = networkMonitor.isOnline
+        .map(Boolean::not)
+        .stateIn(
+            scope = coroutineScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = false,
+        )
 
-	/**
-	 * Map of top level destinations to be used in the TopBar, BottomBar and NavRail. The key is the
-	 * route.
-	 */
-	val topLevelDestinations: List<TopLevelDestination> = TopLevelDestination.entries
+    /**
+     * Map of top level destinations to be used in the TopBar, BottomBar and NavRail. The key is the
+     * route.
+     */
+    val topLevelDestinations: List<TopLevelDestination> = TopLevelDestination.entries
 
-	/**
-	 * UI logic for navigating to a top level destination in the app. Top level destinations have
-	 * only one copy of the destination of the back stack, and save and restore state whenever you
-	 * navigate to and from it.
-	 *
-	 * @param topLevelDestination: The destination the app needs to navigate to.
-	 */
-	fun navigateToTopLevelDestination(topLevelDestination: TopLevelDestination) {
-		trace("Navigation: ${topLevelDestination.name}") {
-			val topLevelNavOptions = navOptions {
-				// Pop up to the start destination of the graph to
-				// avoid building up a large stack of destinations
-				// on the back stack as users select items
-				popUpTo(navController.graph.findStartDestination().id) {
-					saveState = true
-				}
-				// Avoid multiple copies of the same destination when
-				// reselecting the same item
-				launchSingleTop = true
-				// Restore state when reselecting a previously selected item
-				restoreState = true
-			}
+    /**
+     * UI logic for navigating to a top level destination in the app. Top level destinations have
+     * only one copy of the destination of the back stack, and save and restore state whenever you
+     * navigate to and from it.
+     *
+     * @param topLevelDestination: The destination the app needs to navigate to.
+     */
+    fun navigateToTopLevelDestination(topLevelDestination: TopLevelDestination) {
+        trace("Navigation: ${topLevelDestination.name}") {
+            val topLevelNavOptions = navOptions {
+                // Pop up to the start destination of the graph to
+                // avoid building up a large stack of destinations
+                // on the back stack as users select items
+                popUpTo(navController.graph.findStartDestination().id) {
+                    saveState = true
+                }
+                // Avoid multiple copies of the same destination when
+                // reselecting the same item
+                launchSingleTop = true
+                // Restore state when reselecting a previously selected item
+                restoreState = true
+            }
 
-			when (topLevelDestination) {
-				TopLevelDestination.FOR_YOU -> navController.navigateToForYou(topLevelNavOptions)
-				TopLevelDestination.BOOKMARKS -> navController.navigateToBookmarks(
-					topLevelNavOptions
-				)
-			}
-		}
-	}
-
+            when (topLevelDestination) {
+                TopLevelDestination.FOR_YOU -> navController.navigateToForYou(topLevelNavOptions)
+                TopLevelDestination.BOOKMARKS -> navController.navigateToBookmarks(
+                    topLevelNavOptions
+                )
+            }
+        }
+    }
 }

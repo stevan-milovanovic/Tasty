@@ -28,80 +28,79 @@ import com.example.tasty.ui.theme.TastyTheme
 
 @Composable
 fun RecipeCard(
-	recipe: Recipe,
-	onRecipeClick: (Int) -> Unit,
+    recipe: Recipe,
+    onRecipeClick: (Int) -> Unit,
 ) {
-	val width = 180.dp
-	Column(
-		modifier = Modifier
-			.width(width)
-			.padding(top = 8.dp, bottom = 8.dp)
-			.clickable(
-				interactionSource = remember { MutableInteractionSource() },
-				indication = null,
-				onClick = { onRecipeClick(recipe.id) }
-			),
-		horizontalAlignment = Alignment.CenterHorizontally
-	) {
-		Card {
-			RecipeImage(
-				thumbnailUrl = recipe.thumbnailUrl,
-				modifier = Modifier.size(width)
-			)
-		}
-		Text(
-			text = recipe.name,
-			modifier = Modifier
-				.width(width)
-				.padding(top = 8.dp),
-			color = MaterialTheme.colorScheme.onTertiary,
-			lineHeight = 18.sp,
-			textAlign = TextAlign.Start,
-			maxLines = 3,
-			style = MaterialTheme.typography.titleSmall
-		)
-		val timeText = recipe.totalTimeNeeded ?: stringResource(R.string.under_60_minutes)
-		Row(
-			modifier = Modifier
-				.width(width)
-				.padding(top = 2.dp, bottom = 12.dp),
-			verticalAlignment = Alignment.CenterVertically
-		) {
-			Icon(
-				imageVector = Icons.Filled.AccessTime,
-				contentDescription = stringResource(R.string.cooking_time),
-				modifier = Modifier.size(16.dp),
-				tint = MaterialTheme.colorScheme.onTertiary
-			)
-			Text(
-				text = timeText,
-				modifier = Modifier.padding(start = 4.dp),
-				color = MaterialTheme.colorScheme.tertiary,
-				textAlign = TextAlign.Start,
-				maxLines = 1,
-				style = MaterialTheme.typography.bodySmall
-			)
-		}
-	}
+    val width = 180.dp
+    Column(
+        modifier = Modifier
+            .width(width)
+            .padding(top = 8.dp, bottom = 8.dp)
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = null,
+                onClick = { onRecipeClick(recipe.id) }
+            ),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Card {
+            RecipeImage(
+                thumbnailUrl = recipe.thumbnailUrl,
+                modifier = Modifier.size(width)
+            )
+        }
+        Text(
+            text = recipe.name,
+            modifier = Modifier
+                .width(width)
+                .padding(top = 8.dp),
+            color = MaterialTheme.colorScheme.onTertiary,
+            lineHeight = 18.sp,
+            textAlign = TextAlign.Start,
+            maxLines = 3,
+            style = MaterialTheme.typography.titleSmall
+        )
+        val timeText = recipe.totalTimeNeeded ?: stringResource(R.string.under_60_minutes)
+        Row(
+            modifier = Modifier
+                .width(width)
+                .padding(top = 2.dp, bottom = 12.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                imageVector = Icons.Filled.AccessTime,
+                contentDescription = stringResource(R.string.cooking_time),
+                modifier = Modifier.size(16.dp),
+                tint = MaterialTheme.colorScheme.onTertiary
+            )
+            Text(
+                text = timeText,
+                modifier = Modifier.padding(start = 4.dp),
+                color = MaterialTheme.colorScheme.tertiary,
+                textAlign = TextAlign.Start,
+                maxLines = 1,
+                style = MaterialTheme.typography.bodySmall
+            )
+        }
+    }
 }
 
 @Preview
 @Composable
 private fun RecipeCardPreview() {
-	TastyTheme {
-		RecipeCard(
-			recipe = Recipe(
-				1,
-				"Low Carb Meals For A Healthy You",
-				"Delicious meal",
-				"test",
-				"",
-				"",
-				"Under 30 minutes",
-				listOf()
-			),
-			onRecipeClick = {}
-		)
-	}
-
+    TastyTheme {
+        RecipeCard(
+            recipe = Recipe(
+                1,
+                "Low Carb Meals For A Healthy You",
+                "Delicious meal",
+                "test",
+                "",
+                "",
+                "Under 30 minutes",
+                listOf()
+            ),
+            onRecipeClick = {}
+        )
+    }
 }
