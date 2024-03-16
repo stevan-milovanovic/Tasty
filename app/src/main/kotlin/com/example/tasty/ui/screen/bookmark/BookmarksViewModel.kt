@@ -12,7 +12,6 @@ import com.example.tasty.data.repository.userData.UserDataRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,12 +19,6 @@ class BookmarksViewModel @Inject constructor(
     recipesRepository: RecipeRepository,
     userDataRepository: UserDataRepository
 ) : ViewModel() {
-
-    init {
-        viewModelScope.launch {
-            recipesRepository.fetchRecipesIfNeeded()
-        }
-    }
 
     private val userDataFlow: Flow<UserData?> = userDataRepository.getUserDataFlow()
     private val pagingDataFlow: Flow<PagingData<Recipe>> = recipesRepository

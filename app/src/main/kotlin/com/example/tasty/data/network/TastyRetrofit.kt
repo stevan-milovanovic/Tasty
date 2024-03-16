@@ -6,12 +6,18 @@ import com.squareup.moshi.JsonClass
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.http.GET
+import retrofit2.http.Query
 import javax.inject.Inject
 import javax.inject.Singleton
 
+const val DEFAULT_PAGE_SIZE = 40
+
 interface TastyNetworkApi {
     @GET(value = "recipes/list")
-    suspend fun getRecipes(): Response<NetworkResponse<Recipe>>
+    suspend fun getRecipes(
+        @Query("from") from: Int,
+        @Query("size") size: Int = DEFAULT_PAGE_SIZE,
+    ): Response<NetworkResponse<Recipe>>
 }
 
 @JsonClass(generateAdapter = true)
@@ -32,17 +38,17 @@ class TastyRetrofit @Inject constructor(
         private const val TAG = "Tasty Network Layer"
     }
 
-    override suspend fun getRecipes(): List<Recipe> {
+    override suspend fun getRecipes(from: Int): Pair<Int, List<Recipe>> {
         return try {
-            val response = tastyNetworkApi.getRecipes()
+            val response = tastyNetworkApi.getRecipes(from)
             val result = response.body()
             if (response.isSuccessful && result != null) {
-                result.results
+                (result.count to result.results)
             } else {
-                listOf()
+                (0 to listOf())
             }
         } catch (e: Exception) {
-            Log.e(TAG, "Unexpected network error", e)
+            Log.e(TAG, "Unexpected exception while trying to fetch recipes", e)
             throw e
         }
     }

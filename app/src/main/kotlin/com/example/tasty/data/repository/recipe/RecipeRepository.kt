@@ -11,11 +11,5 @@ interface RecipeRepository {
 
     fun getRecipesPagedFlow(): Flow<PagingData<Recipe>>
 
-    suspend fun fetchRecipesIfNeeded()
-
     fun getRecipeFlow(recipeId: Int): Flow<Recipe>
-
-    suspend fun getRecipe(recipeId: Int, forceUpdate: Boolean = false): Recipe
-
-    suspend fun refresh()
 }

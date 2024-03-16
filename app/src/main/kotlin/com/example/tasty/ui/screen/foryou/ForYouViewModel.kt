@@ -20,7 +20,6 @@ class ForYouViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            recipesRepository.fetchRecipesIfNeeded()
             userDataRepository.updateOnboardingShownFlag()
         }
     }

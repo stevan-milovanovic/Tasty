@@ -56,4 +56,7 @@ interface RecipeDao {
      */
     @Query("SELECT (SELECT COUNT(*) FROM recipe) == 0")
     fun isEmpty(): Boolean
+
+    @Query("SELECT COUNT(id) FROM recipe")
+    fun getRecipesCount(): Int
 }
