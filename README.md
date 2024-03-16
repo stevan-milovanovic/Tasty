@@ -39,6 +39,9 @@ App starts with [Onboarding screen](app/src/main/kotlin/com/example/tasty/ui/scr
 * [Moshi][moshi] for parsing JSON into Kotlin classes
 * [Coil][coil] for image loading
 * [Media3 ExoPlayer][exoplayer] for playing video tutorials
+* [Paging3][paging3] for loading and displaying paged data
+
+[paging3]: https://developer.android.com/topic/libraries/architecture/paging/v3-paged-data
 
 [core]: https://developer.android.com/jetpack/androidx/releases/core
 
