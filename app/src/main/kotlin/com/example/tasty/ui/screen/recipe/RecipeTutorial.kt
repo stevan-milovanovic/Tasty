@@ -34,55 +34,55 @@ private const val PLAY_ANIMATION_DELAY_MILLIS = 1750
 
 @Composable
 fun RecipeTutorial(
-	recipe: Recipe
+    recipe: Recipe
 ) {
-	var shouldPlayVideo by rememberSaveable { mutableStateOf(false) }
+    var shouldPlayVideo by rememberSaveable { mutableStateOf(false) }
 
-	Box(
-		modifier = Modifier
-			.fillMaxHeight(0.4f)
-			.wrapContentHeight(Alignment.Top, unbounded = false),
-		contentAlignment = Alignment.Center
-	) {
-		RecipeImage(
-			thumbnailUrl = recipe.thumbnailUrl,
-			modifier = Modifier.fillMaxSize()
-		)
-		if (recipe.videoUrl == null) {
-			return
-		}
-		val animationSpec: FiniteAnimationSpec<Float> =
-			tween(delayMillis = PLAY_ANIMATION_DELAY_MILLIS)
-		AnimatedVisibility(
-			visible = shouldPlayVideo,
-			enter = fadeIn(animationSpec = animationSpec)
-		) {
-			VideoPlayer(videoUrl = recipe.videoUrl)
-		}
-		AnimatedVisibility(
-			visible = !shouldPlayVideo,
-			exit = fadeOut(animationSpec = animationSpec)
-		) {
-			var iconClicked by remember { mutableStateOf(false) }
-			if (iconClicked) {
-				CircularProgressIndicator(
-					modifier = Modifier.size(64.dp),
-					color = MaterialTheme.colorScheme.onPrimary,
-					trackColor = MaterialTheme.colorScheme.surfaceVariant,
-				)
-			} else {
-				Icon(
-					imageVector = Icons.Rounded.PlayCircle,
-					contentDescription = stringResource(id = R.string.play_video),
-					modifier = Modifier
-						.size(64.dp)
-						.clickable {
-							iconClicked = true
-							shouldPlayVideo = true
-						},
-					tint = MaterialTheme.colorScheme.onPrimary
-				)
-			}
-		}
-	}
+    Box(
+        modifier = Modifier
+            .fillMaxHeight(0.4f)
+            .wrapContentHeight(Alignment.Top, unbounded = false),
+        contentAlignment = Alignment.Center
+    ) {
+        RecipeImage(
+            thumbnailUrl = recipe.thumbnailUrl,
+            modifier = Modifier.fillMaxSize()
+        )
+        if (recipe.videoUrl == null) {
+            return
+        }
+        val animationSpec: FiniteAnimationSpec<Float> =
+            tween(delayMillis = PLAY_ANIMATION_DELAY_MILLIS)
+        AnimatedVisibility(
+            visible = shouldPlayVideo,
+            enter = fadeIn(animationSpec = animationSpec)
+        ) {
+            VideoPlayer(videoUrl = recipe.videoUrl)
+        }
+        AnimatedVisibility(
+            visible = !shouldPlayVideo,
+            exit = fadeOut(animationSpec = animationSpec)
+        ) {
+            var iconClicked by remember { mutableStateOf(false) }
+            if (iconClicked) {
+                CircularProgressIndicator(
+                    modifier = Modifier.size(64.dp),
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    trackColor = MaterialTheme.colorScheme.surfaceVariant,
+                )
+            } else {
+                Icon(
+                    imageVector = Icons.Rounded.PlayCircle,
+                    contentDescription = stringResource(id = R.string.play_video),
+                    modifier = Modifier
+                        .size(64.dp)
+                        .clickable {
+                            iconClicked = true
+                            shouldPlayVideo = true
+                        },
+                    tint = MaterialTheme.colorScheme.onPrimary
+                )
+            }
+        }
+    }
 }

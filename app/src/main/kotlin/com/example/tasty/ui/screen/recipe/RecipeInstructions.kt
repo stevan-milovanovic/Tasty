@@ -17,51 +17,50 @@ import com.example.tasty.ui.theme.TastyTheme
 
 @Composable
 fun RecipeInstructions(
-	instructions: List<String>,
-	modifier: Modifier = Modifier
+    instructions: List<String>,
+    modifier: Modifier = Modifier
 ) {
-	Column(
-		modifier = modifier,
-	) {
-		Text(
-			text = stringResource(R.string.how_to_make_it),
-			modifier = Modifier.padding(top = 16.dp, bottom = 8.dp),
-			style = MaterialTheme.typography.titleSmall,
-		)
-		repeat(instructions.size) { instructionIndex ->
-			val instruction = instructions[instructionIndex]
-			Row(
-				modifier = Modifier.padding(vertical = 6.dp, horizontal = 4.dp),
-				verticalAlignment = Alignment.Top
-			) {
-				Text(
-					text = (instructionIndex + 1).toString() + ".",
-					style = MaterialTheme.typography.bodySmall,
-					lineHeight = 18.sp
-				)
-				Text(
-					text = instruction,
-					modifier = Modifier.padding(horizontal = 12.dp),
-					style = MaterialTheme.typography.bodySmall,
-					lineHeight = 18.sp
-				)
-			}
-		}
-	}
+    Column(
+        modifier = modifier,
+    ) {
+        Text(
+            text = stringResource(R.string.how_to_make_it),
+            modifier = Modifier.padding(top = 16.dp, bottom = 8.dp),
+            style = MaterialTheme.typography.titleSmall,
+        )
+        repeat(instructions.size) { instructionIndex ->
+            val instruction = instructions[instructionIndex]
+            Row(
+                modifier = Modifier.padding(vertical = 6.dp, horizontal = 4.dp),
+                verticalAlignment = Alignment.Top
+            ) {
+                Text(
+                    text = (instructionIndex + 1).toString() + ".",
+                    style = MaterialTheme.typography.bodySmall,
+                    lineHeight = 18.sp
+                )
+                Text(
+                    text = instruction,
+                    modifier = Modifier.padding(horizontal = 12.dp),
+                    style = MaterialTheme.typography.bodySmall,
+                    lineHeight = 18.sp
+                )
+            }
+        }
+    }
 }
-
 
 @Preview
 @Composable
 private fun RecipeInstructionsPreview() {
-	TastyTheme {
-		RecipeInstructions(
-			instructions = listOf(
-				"In a blender or food processor, combine the yogurt, lime juice, pepper, and chili powder and pulse to combine. Add ½ of the avocado and blend until creamy.",
-				"In a medium bowl, combine the chicken, yogurt sauce, celery, the remaining ½ avocado, onion, and salt. Mix until well combined.",
-				"Serve on low-carb bread and garnish with cilantro, or as desired.",
-				"Enjoy!"
-			)
-		)
-	}
+    TastyTheme {
+        RecipeInstructions(
+            instructions = listOf(
+                "In a blender or food processor, combine the yogurt, lime juice, pepper, and chili powder and pulse to combine. Add ½ of the avocado and blend until creamy.",
+                "In a medium bowl, combine the chicken, yogurt sauce, celery, the remaining ½ avocado, onion, and salt. Mix until well combined.",
+                "Serve on low-carb bread and garnish with cilantro, or as desired.",
+                "Enjoy!"
+            )
+        )
+    }
 }

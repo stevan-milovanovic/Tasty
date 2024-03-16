@@ -8,12 +8,11 @@ import kotlinx.coroutines.flow.Flow
  */
 interface UserDataRepository {
 
-	suspend fun updateOnboardingShownFlag()
+    suspend fun updateOnboardingShownFlag()
 
-	fun getUserDataFlow(): Flow<UserData?>
+    fun getUserDataFlow(): Flow<UserData?>
 
-	suspend fun getUserData(): UserData?
+    suspend fun getUserData(): UserData?
 
-	suspend fun updateBookmarkedRecipes(userData: UserData)
-
+    suspend fun updateBookmarkedRecipes(userData: UserData)
 }

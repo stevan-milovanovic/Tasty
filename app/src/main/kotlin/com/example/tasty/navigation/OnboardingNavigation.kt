@@ -7,9 +7,9 @@ import com.example.tasty.ui.screen.onboarding.OnboardingScreen
 const val ONBOARDING_ROUTE = "onboarding_route"
 
 fun NavGraphBuilder.onboardingScreen(onContinueClick: () -> Unit) {
-	composable(
-		route = ONBOARDING_ROUTE
-	) {
-		OnboardingScreen(onContinueClick)
-	}
+    composable(
+        route = ONBOARDING_ROUTE
+    ) {
+        OnboardingScreen(onContinueClick)
+    }
 }

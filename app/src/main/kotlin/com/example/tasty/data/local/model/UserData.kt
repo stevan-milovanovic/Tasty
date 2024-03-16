@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
  */
 @Entity(tableName = "userData")
 data class UserData(
-	@PrimaryKey
-	val bookmarkedRecipes: Set<Int>,
-	val shouldHideOnboarding: Boolean,
+    @PrimaryKey
+    val bookmarkedRecipes: Set<Int>,
+    val shouldHideOnboarding: Boolean,
 )

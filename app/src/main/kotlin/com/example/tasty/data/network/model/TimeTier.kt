@@ -5,6 +5,6 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class TimeTier(
-	@Json(name = "display_tier")
-	val totalTimeNeeded: String
+    @Json(name = "display_tier")
+    val totalTimeNeeded: String
 )

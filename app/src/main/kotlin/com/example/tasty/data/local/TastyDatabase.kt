@@ -19,8 +19,7 @@ import com.example.tasty.data.local.model.UserData
 @Database(entities = [Recipe::class, UserData::class], version = 2, exportSchema = false)
 abstract class TastyDatabase : RoomDatabase() {
 
-	abstract fun recipeDao(): RecipeDao
+    abstract fun recipeDao(): RecipeDao
 
-	abstract fun userDataDao(): UserDataDao
-
+    abstract fun userDataDao(): UserDataDao
 }

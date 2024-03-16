@@ -15,24 +15,24 @@ import com.example.tasty.ui.theme.TastyTheme
 
 @Composable
 fun RecipeImage(
-	thumbnailUrl: String,
-	modifier: Modifier = Modifier
+    thumbnailUrl: String,
+    modifier: Modifier = Modifier
 ) {
-	AsyncImage(
-		model = thumbnailUrl,
-		contentDescription = stringResource(R.string.recipe_thumbnail),
-		modifier = modifier.fillMaxWidth(),
-		contentScale = ContentScale.Crop,
-		placeholder = rememberVectorPainter(
-			image = ImageVector.vectorResource(R.drawable.ic_cooking_placeholder)
-		)
-	)
+    AsyncImage(
+        model = thumbnailUrl,
+        contentDescription = stringResource(R.string.recipe_thumbnail),
+        modifier = modifier.fillMaxWidth(),
+        contentScale = ContentScale.Crop,
+        placeholder = rememberVectorPainter(
+            image = ImageVector.vectorResource(R.drawable.ic_cooking_placeholder)
+        )
+    )
 }
 
 @Preview(showSystemUi = true)
 @Composable
 fun RecipeImagePreview() {
-	TastyTheme {
-		RecipeImage(thumbnailUrl = "test")
-	}
+    TastyTheme {
+        RecipeImage(thumbnailUrl = "test")
+    }
 }

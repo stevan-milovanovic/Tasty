@@ -14,22 +14,22 @@ import com.example.tasty.ui.theme.TastyTheme
 
 @Composable
 fun LoadingScreen() {
-	Box(
-		modifier = Modifier.fillMaxSize(),
-		contentAlignment = Alignment.Center
-	) {
-		CircularProgressIndicator(
-			modifier = Modifier.width(64.dp),
-			color = MaterialTheme.colorScheme.secondary,
-			trackColor = MaterialTheme.colorScheme.surfaceVariant,
-		)
-	}
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        CircularProgressIndicator(
+            modifier = Modifier.width(64.dp),
+            color = MaterialTheme.colorScheme.secondary,
+            trackColor = MaterialTheme.colorScheme.surfaceVariant,
+        )
+    }
 }
 
 @Preview(showSystemUi = true)
 @Composable
 private fun LoadingScreenPreview() {
-	TastyTheme {
-		LoadingScreen()
-	}
+    TastyTheme {
+        LoadingScreen()
+    }
 }

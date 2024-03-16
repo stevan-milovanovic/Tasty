@@ -7,17 +7,16 @@ import androidx.room.TypeConverter
  */
 class BookmarkedRecipesConverter {
 
-	companion object {
-		private const val SEPARATOR = ", "
-	}
+    companion object {
+        private const val SEPARATOR = ", "
+    }
 
-	@TypeConverter
-	fun fromSetToString(list: Set<Int>): String = list.joinToString(SEPARATOR)
+    @TypeConverter
+    fun fromSetToString(list: Set<Int>): String = list.joinToString(SEPARATOR)
 
-	@TypeConverter
-	fun fromStringToSet(data: String): Set<Int> {
-		if (data.isBlank()) return emptySet()
-		return data.split(SEPARATOR).map { it.toInt() }.toSet()
-	}
-
+    @TypeConverter
+    fun fromStringToSet(data: String): Set<Int> {
+        if (data.isBlank()) return emptySet()
+        return data.split(SEPARATOR).map { it.toInt() }.toSet()
+    }
 }

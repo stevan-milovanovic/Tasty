@@ -1,13 +1,11 @@
 package com.example.tasty.navigation
 
-import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
-import com.example.tasty.ui.component.recipe.RecipesUiState
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.tasty.ui.screen.foryou.ForYouScreen
 import com.example.tasty.ui.screen.foryou.ForYouViewModel
 
@@ -20,10 +18,10 @@ fun NavGraphBuilder.forYouScreen(onRecipeClick: (Int) -> Unit) {
 		route = FOR_YOU_ROUTE
 	) {
 		val viewModel: ForYouViewModel = hiltViewModel()
-		val uiState: RecipesUiState by viewModel.uiState.collectAsStateWithLifecycle()
+        val recipesLazyPagingItems = viewModel.pagingDataFlow.collectAsLazyPagingItems()
 
 		ForYouScreen(
-			uiState = uiState,
+            recipesLazyPagingItems = recipesLazyPagingItems,
 			onRecipeClick = onRecipeClick
 		)
 	}

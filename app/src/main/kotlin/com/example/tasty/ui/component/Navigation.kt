@@ -14,7 +14,6 @@ import com.example.tasty.ui.theme.TastyIcons
 import com.example.tasty.ui.theme.TastyTheme
 import com.example.tasty.ui.theme.ThemePreviews
 
-
 /**
  * Navigation bar item with icon and label content slots. Wraps Material 3
  * [NavigationBarItem].
@@ -32,31 +31,31 @@ import com.example.tasty.ui.theme.ThemePreviews
  */
 @Composable
 fun RowScope.TastyNavigationBarItem(
-	selected: Boolean,
-	onClick: () -> Unit,
-	icon: @Composable () -> Unit,
-	modifier: Modifier = Modifier,
-	selectedIcon: @Composable () -> Unit = icon,
-	enabled: Boolean = true,
-	label: @Composable (() -> Unit)? = null,
-	alwaysShowLabel: Boolean = true,
+    selected: Boolean,
+    onClick: () -> Unit,
+    icon: @Composable () -> Unit,
+    modifier: Modifier = Modifier,
+    selectedIcon: @Composable () -> Unit = icon,
+    enabled: Boolean = true,
+    label: @Composable (() -> Unit)? = null,
+    alwaysShowLabel: Boolean = true,
 ) {
-	NavigationBarItem(
-		selected = selected,
-		onClick = onClick,
-		icon = if (selected) selectedIcon else icon,
-		modifier = modifier,
-		enabled = enabled,
-		label = label,
-		alwaysShowLabel = alwaysShowLabel,
-		colors = NavigationBarItemDefaults.colors(
-			selectedIconColor = TastyNavigationDefaults.navigationSelectedItemColor(),
-			unselectedIconColor = TastyNavigationDefaults.navigationContentColor(),
-			selectedTextColor = TastyNavigationDefaults.navigationSelectedItemColor(),
-			unselectedTextColor = TastyNavigationDefaults.navigationContentColor(),
-			indicatorColor = TastyNavigationDefaults.navigationIndicatorColor(),
-		),
-	)
+    NavigationBarItem(
+        selected = selected,
+        onClick = onClick,
+        icon = if (selected) selectedIcon else icon,
+        modifier = modifier,
+        enabled = enabled,
+        label = label,
+        alwaysShowLabel = alwaysShowLabel,
+        colors = NavigationBarItemDefaults.colors(
+            selectedIconColor = TastyNavigationDefaults.navigationSelectedItemColor(),
+            unselectedIconColor = TastyNavigationDefaults.navigationContentColor(),
+            selectedTextColor = TastyNavigationDefaults.navigationSelectedItemColor(),
+            unselectedTextColor = TastyNavigationDefaults.navigationContentColor(),
+            indicatorColor = TastyNavigationDefaults.navigationIndicatorColor(),
+        ),
+    )
 }
 
 /**
@@ -68,65 +67,65 @@ fun RowScope.TastyNavigationBarItem(
  */
 @Composable
 fun TastyNavigationBar(
-	modifier: Modifier = Modifier,
-	content: @Composable RowScope.() -> Unit,
+    modifier: Modifier = Modifier,
+    content: @Composable RowScope.() -> Unit,
 ) {
-	NavigationBar(
-		modifier = modifier,
-		contentColor = TastyNavigationDefaults.navigationContentColor(),
-		tonalElevation = 0.dp,
-		content = content,
-	)
+    NavigationBar(
+        modifier = modifier,
+        contentColor = TastyNavigationDefaults.navigationContentColor(),
+        tonalElevation = 0.dp,
+        content = content,
+    )
 }
 
 @ThemePreviews
 @Composable
 fun TastyNavigationPreview() {
-	val items = listOf("For you", "Saved")
-	val icons = listOf(
-		TastyIcons.UpcomingBorder,
-		TastyIcons.BookmarksBorder
-	)
-	val selectedIcons = listOf(
-		TastyIcons.Upcoming,
-		TastyIcons.Bookmarks
-	)
+    val items = listOf("For you", "Saved")
+    val icons = listOf(
+        TastyIcons.UpcomingBorder,
+        TastyIcons.BookmarksBorder
+    )
+    val selectedIcons = listOf(
+        TastyIcons.Upcoming,
+        TastyIcons.Bookmarks
+    )
 
-	TastyTheme {
-		TastyNavigationBar {
-			items.forEachIndexed { index, item ->
-				TastyNavigationBarItem(
-					icon = {
-						Icon(
-							imageVector = icons[index],
-							contentDescription = item,
-						)
-					},
-					selectedIcon = {
-						Icon(
-							imageVector = selectedIcons[index],
-							contentDescription = item,
-						)
-					},
-					label = { Text(item) },
-					selected = index == 0,
-					onClick = { },
-				)
-			}
-		}
-	}
+    TastyTheme {
+        TastyNavigationBar {
+            items.forEachIndexed { index, item ->
+                TastyNavigationBarItem(
+                    icon = {
+                        Icon(
+                            imageVector = icons[index],
+                            contentDescription = item,
+                        )
+                    },
+                    selectedIcon = {
+                        Icon(
+                            imageVector = selectedIcons[index],
+                            contentDescription = item,
+                        )
+                    },
+                    label = { Text(item) },
+                    selected = index == 0,
+                    onClick = { },
+                )
+            }
+        }
+    }
 }
 
 /**
  * Navigation default values.
  */
 object TastyNavigationDefaults {
-	@Composable
-	fun navigationContentColor() = MaterialTheme.colorScheme.onSurfaceVariant
+    @Composable
+    fun navigationContentColor() = MaterialTheme.colorScheme.onSurfaceVariant
 
-	@Composable
-	fun navigationSelectedItemColor() = MaterialTheme.colorScheme.onPrimaryContainer
+    @Composable
+    fun navigationSelectedItemColor() = MaterialTheme.colorScheme.onPrimaryContainer
 
-	@Composable
-	fun navigationIndicatorColor() = MaterialTheme.colorScheme.primaryContainer
+    @Composable
+    fun navigationIndicatorColor() = MaterialTheme.colorScheme.primaryContainer
 }

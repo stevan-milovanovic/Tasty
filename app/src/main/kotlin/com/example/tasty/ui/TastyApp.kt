@@ -1,7 +1,6 @@
 package com.example.tasty.ui
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
@@ -37,104 +36,103 @@ import com.example.tasty.navigation.TopLevelDestination
 import com.example.tasty.ui.component.TastyNavigationBar
 import com.example.tasty.ui.component.TastyNavigationBarItem
 
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun TastyApp(
-	networkMonitor: NetworkMonitor,
-	appState: TastyAppState = rememberTastyAppState(networkMonitor = networkMonitor),
-	startDestination: String,
+    networkMonitor: NetworkMonitor,
+    appState: TastyAppState = rememberTastyAppState(networkMonitor = networkMonitor),
+    startDestination: String,
 ) {
-	val snackbarHostState = remember { SnackbarHostState() }
+    val snackbarHostState = remember { SnackbarHostState() }
 
-	val isOffline by appState.isOffline.collectAsStateWithLifecycle()
+    val isOffline by appState.isOffline.collectAsStateWithLifecycle()
 
-	// If user is not connected to the internet show a snack bar to inform them.
-	val notConnectedMessage = stringResource(R.string.not_connected)
-	LaunchedEffect(isOffline) {
-		if (isOffline) {
-			snackbarHostState.showSnackbar(
-				message = notConnectedMessage,
-				duration = SnackbarDuration.Indefinite,
-			)
-		}
-	}
+    // If user is not connected to the internet show a snack bar to inform them.
+    val notConnectedMessage = stringResource(R.string.not_connected)
+    LaunchedEffect(isOffline) {
+        if (isOffline) {
+            snackbarHostState.showSnackbar(
+                message = notConnectedMessage,
+                duration = SnackbarDuration.Indefinite,
+            )
+        }
+    }
 
-	Scaffold(
-		containerColor = Color.Transparent,
-		contentColor = MaterialTheme.colorScheme.onBackground,
-		contentWindowInsets = WindowInsets(0, 0, 0, 0),
-		snackbarHost = { SnackbarHost(snackbarHostState) },
-		bottomBar = {
-			val currentRoute = appState.currentDestination?.route
-			if (currentRoute == null ||
-				currentRoute == ONBOARDING_ROUTE ||
-				currentRoute.startsWith(RECIPE_ROUTE)
-			) {
-				return@Scaffold
-			} else {
-				TastyBottomBar(
-					destinations = appState.topLevelDestinations,
-					onNavigateToDestination = appState::navigateToTopLevelDestination,
-					currentDestination = appState.currentDestination
-				)
-			}
-		},
-	) { padding ->
-		Row(
-			Modifier
-				.fillMaxSize()
-				.padding(padding)
-				.consumeWindowInsets(padding)
-				.windowInsetsPadding(
-					WindowInsets.safeDrawing.only(
-						WindowInsetsSides.Horizontal,
-					),
-				),
-		) {
-			Column(Modifier.fillMaxSize()) {
-				TastyNavHost(
-					appState = appState,
-					startDestination = startDestination
-				)
-			}
-		}
-	}
+    Scaffold(
+        containerColor = Color.Transparent,
+        contentColor = MaterialTheme.colorScheme.onBackground,
+        contentWindowInsets = WindowInsets(0, 0, 0, 0),
+        snackbarHost = { SnackbarHost(snackbarHostState) },
+        bottomBar = {
+            val currentRoute = appState.currentDestination?.route
+            if (currentRoute == null ||
+                currentRoute == ONBOARDING_ROUTE ||
+                currentRoute.startsWith(RECIPE_ROUTE)
+            ) {
+                return@Scaffold
+            } else {
+                TastyBottomBar(
+                    destinations = appState.topLevelDestinations,
+                    onNavigateToDestination = appState::navigateToTopLevelDestination,
+                    currentDestination = appState.currentDestination
+                )
+            }
+        },
+    ) { padding ->
+        Row(
+            Modifier
+                .fillMaxSize()
+                .padding(padding)
+                .consumeWindowInsets(padding)
+                .windowInsetsPadding(
+                    WindowInsets.safeDrawing.only(
+                        WindowInsetsSides.Horizontal,
+                    ),
+                ),
+        ) {
+            Column(Modifier.fillMaxSize()) {
+                TastyNavHost(
+                    appState = appState,
+                    startDestination = startDestination
+                )
+            }
+        }
+    }
 }
 
 @Composable
 private fun TastyBottomBar(
-	destinations: List<TopLevelDestination>,
-	onNavigateToDestination: (TopLevelDestination) -> Unit,
-	currentDestination: NavDestination?,
-	modifier: Modifier = Modifier,
+    destinations: List<TopLevelDestination>,
+    onNavigateToDestination: (TopLevelDestination) -> Unit,
+    currentDestination: NavDestination?,
+    modifier: Modifier = Modifier,
 ) {
-	TastyNavigationBar(
-		modifier = modifier,
-	) {
-		destinations.forEach { destination ->
-			val selected = currentDestination.isTopLevelDestinationInHierarchy(destination)
-			TastyNavigationBarItem(
-				selected = selected,
-				onClick = { onNavigateToDestination(destination) },
-				icon = {
-					Icon(
-						imageVector = destination.unselectedIcon,
-						contentDescription = null,
-					)
-				},
-				selectedIcon = {
-					Icon(
-						imageVector = destination.selectedIcon,
-						contentDescription = null,
-					)
-				},
-				label = { Text(stringResource(destination.iconTextId)) },
-			)
-		}
-	}
+    TastyNavigationBar(
+        modifier = modifier,
+    ) {
+        destinations.forEach { destination ->
+            val selected = currentDestination.isTopLevelDestinationInHierarchy(destination)
+            TastyNavigationBarItem(
+                selected = selected,
+                onClick = { onNavigateToDestination(destination) },
+                icon = {
+                    Icon(
+                        imageVector = destination.unselectedIcon,
+                        contentDescription = null,
+                    )
+                },
+                selectedIcon = {
+                    Icon(
+                        imageVector = destination.selectedIcon,
+                        contentDescription = null,
+                    )
+                },
+                label = { Text(stringResource(destination.iconTextId)) },
+            )
+        }
+    }
 }
 
 private fun NavDestination?.isTopLevelDestinationInHierarchy(destination: TopLevelDestination) =
-	this?.hierarchy?.any {
-		it.route?.contains(destination.name, true) ?: false
-	} ?: false
+    this?.hierarchy?.any {
+        it.route?.contains(destination.name, true) ?: false
+    } ?: false

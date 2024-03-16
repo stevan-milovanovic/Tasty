@@ -16,29 +16,28 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-	@Inject
-	lateinit var networkMonitor: NetworkMonitor
+    @Inject
+    lateinit var networkMonitor: NetworkMonitor
 
-	private val mainActivityViewModel: MainActivityViewModel by viewModels()
+    private val mainActivityViewModel: MainActivityViewModel by viewModels()
 
-	override fun onCreate(savedInstanceState: Bundle?) {
-		super.onCreate(savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-		setContent {
-			TastyTheme {
-				val destination by mainActivityViewModel.initialDestination.collectAsStateWithLifecycle()
+        setContent {
+            TastyTheme {
+                val destination by mainActivityViewModel.initialDestination.collectAsStateWithLifecycle()
 
-				destination?.let {
-					TastyApp(
-						networkMonitor = networkMonitor,
-						startDestination = it
-					)
-					return@TastyTheme
-				}
+                destination?.let {
+                    TastyApp(
+                        networkMonitor = networkMonitor,
+                        startDestination = it
+                    )
+                    return@TastyTheme
+                }
 
-				LoadingScreen()
-			}
-		}
-	}
-
+                LoadingScreen()
+            }
+        }
+    }
 }

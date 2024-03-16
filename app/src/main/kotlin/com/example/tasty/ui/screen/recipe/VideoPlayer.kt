@@ -25,75 +25,75 @@ import com.example.tasty.ui.theme.TastyTheme
 @Composable
 @OptIn(UnstableApi::class)
 fun VideoPlayer(
-	videoUrl: String
+    videoUrl: String
 ) {
-	val context = LocalContext.current
+    val context = LocalContext.current
 
-	val exoPlayer = remember {
-		ExoPlayer.Builder(context)
-			.build()
-			.apply {
-				val defaultDataSourceFactory = DefaultDataSource.Factory(context)
-				val dataSourceFactory: DataSource.Factory = DefaultDataSource.Factory(
-					context,
-					defaultDataSourceFactory
-				)
-				val mediaSource = getMediaSource(videoUrl, dataSourceFactory)
-				setMediaSource(mediaSource)
-				prepare()
-				playWhenReady = true
-			}
-	}
+    val exoPlayer = remember {
+        ExoPlayer.Builder(context)
+            .build()
+            .apply {
+                val defaultDataSourceFactory = DefaultDataSource.Factory(context)
+                val dataSourceFactory: DataSource.Factory = DefaultDataSource.Factory(
+                    context,
+                    defaultDataSourceFactory
+                )
+                val mediaSource = getMediaSource(videoUrl, dataSourceFactory)
+                setMediaSource(mediaSource)
+                prepare()
+                playWhenReady = true
+            }
+    }
 
-	AndroidView(
-		factory = { c ->
-			PlayerView(c).apply {
-				resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FILL
-				player = exoPlayer
-				layoutParams = FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
-			}
-		}
-	)
+    AndroidView(
+        factory = { c ->
+            PlayerView(c).apply {
+                resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FILL
+                player = exoPlayer
+                layoutParams = FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
+            }
+        }
+    )
 
-	DisposableEffect(key1 = Unit) {
-		onDispose { exoPlayer.release() }
-	}
+    DisposableEffect(key1 = Unit) {
+        onDispose { exoPlayer.release() }
+    }
 }
 
 private const val M3U8_VIDEO_EXTENSION = "m3u8"
 
 private fun getMediaSource(
-	videoUrl: String,
-	dataSourceFactory: DataSource.Factory
+    videoUrl: String,
+    dataSourceFactory: DataSource.Factory
 ) = if (videoUrl.endsWith(M3U8_VIDEO_EXTENSION)) {
-	getHlsMediaSource(
-		mediaUrl = videoUrl,
-		dataSourceFactory = dataSourceFactory
-	)
+    getHlsMediaSource(
+        mediaUrl = videoUrl,
+        dataSourceFactory = dataSourceFactory
+    )
 } else {
-	getProgressiveMediaSource(
-		mediaUrl = videoUrl,
-		dataSourceFactory = dataSourceFactory
-	)
+    getProgressiveMediaSource(
+        mediaUrl = videoUrl,
+        dataSourceFactory = dataSourceFactory
+    )
 }
 
 @OptIn(UnstableApi::class)
 private fun getHlsMediaSource(
-	mediaUrl: String,
-	dataSourceFactory: DataSource.Factory
+    mediaUrl: String,
+    dataSourceFactory: DataSource.Factory
 ): MediaSource = HlsMediaSource.Factory(dataSourceFactory).createMediaSource(fromUri(mediaUrl))
 
 @OptIn(UnstableApi::class)
 private fun getProgressiveMediaSource(
-	mediaUrl: String,
-	dataSourceFactory: DataSource.Factory
+    mediaUrl: String,
+    dataSourceFactory: DataSource.Factory
 ): MediaSource = ProgressiveMediaSource.Factory(dataSourceFactory)
-	.createMediaSource(fromUri(Uri.parse(mediaUrl)))
+    .createMediaSource(fromUri(Uri.parse(mediaUrl)))
 
 @Preview
 @Composable
 fun VideoPlayerComposablePreview() {
-	TastyTheme {
-		VideoPlayer(videoUrl = "")
-	}
+    TastyTheme {
+        VideoPlayer(videoUrl = "")
+    }
 }

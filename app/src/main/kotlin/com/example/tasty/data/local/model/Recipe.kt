@@ -12,13 +12,13 @@ import androidx.room.PrimaryKey
  */
 @Entity(tableName = "recipe")
 data class Recipe(
-	@PrimaryKey
-	val id: Int,
-	val name: String,
-	val description: String?,
-	val thumbnailUrl: String,
-	val videoUrl: String?,
-	val keywords: String?,
-	val totalTimeNeeded: String?,
-	val instructions: List<String>?
+    @PrimaryKey
+    val id: Int,
+    val name: String,
+    val description: String?,
+    val thumbnailUrl: String,
+    val videoUrl: String?,
+    val keywords: String?,
+    val totalTimeNeeded: String?,
+    val instructions: List<String>?
 )

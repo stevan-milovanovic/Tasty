@@ -22,63 +22,63 @@ import com.example.tasty.ui.theme.ThemePreviews
 
 @Composable
 fun OnboardingScreen(
-	onContinueClick: () -> Unit
+    onContinueClick: () -> Unit
 ) {
-	Surface(
-		modifier = Modifier.fillMaxSize(),
-		color = MaterialTheme.colorScheme.background
-	) {
-		Greeting(onContinueClick)
-	}
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.background
+    ) {
+        Greeting(onContinueClick)
+    }
 }
 
 @Composable
 private fun Greeting(
-	onContinueClick: () -> Unit
+    onContinueClick: () -> Unit
 ) {
-	Column {
-		Image(
-			painter = painterResource(id = R.drawable.tasty_onboarding),
-			contentDescription = stringResource(id = R.string.app_name),
-			modifier = Modifier.fillMaxWidth(),
-			contentScale = ContentScale.FillWidth
-		)
-		Text(
-			text = stringResource(R.string.start_cooking),
-			modifier = Modifier
-				.fillMaxWidth()
-				.padding(top = 48.dp),
-			style = MaterialTheme.typography.titleLarge,
-			textAlign = TextAlign.Center,
-		)
-		Text(
-			text = stringResource(R.string.let_s_join_our_community_to_cook_better_food),
-			modifier = Modifier
-				.fillMaxWidth()
-				.padding(top = 16.dp),
-			style = MaterialTheme.typography.bodyLarge,
-			textAlign = TextAlign.Center,
-			color = MaterialTheme.colorScheme.tertiary
-		)
-		Button(
-			onClick = onContinueClick,
-			modifier = Modifier
-				.fillMaxWidth()
-				.padding(horizontal = 32.dp, vertical = 19.dp)
-		) {
-			Text(
-				text = stringResource(R.string.get_started),
-				modifier = Modifier.padding(8.dp),
-				style = MaterialTheme.typography.titleSmall
-			)
-		}
-	}
+    Column {
+        Image(
+            painter = painterResource(id = R.drawable.tasty_onboarding),
+            contentDescription = stringResource(id = R.string.app_name),
+            modifier = Modifier.fillMaxWidth(),
+            contentScale = ContentScale.FillWidth
+        )
+        Text(
+            text = stringResource(R.string.start_cooking),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 48.dp),
+            style = MaterialTheme.typography.titleLarge,
+            textAlign = TextAlign.Center,
+        )
+        Text(
+            text = stringResource(R.string.let_s_join_our_community_to_cook_better_food),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 16.dp),
+            style = MaterialTheme.typography.bodyLarge,
+            textAlign = TextAlign.Center,
+            color = MaterialTheme.colorScheme.tertiary
+        )
+        Button(
+            onClick = onContinueClick,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 32.dp, vertical = 19.dp)
+        ) {
+            Text(
+                text = stringResource(R.string.get_started),
+                modifier = Modifier.padding(8.dp),
+                style = MaterialTheme.typography.titleSmall
+            )
+        }
+    }
 }
 
 @ThemePreviews
 @Composable
 private fun GreetingPreview() {
-	TastyTheme {
-		OnboardingScreen {}
-	}
+    TastyTheme {
+        OnboardingScreen {}
+    }
 }
