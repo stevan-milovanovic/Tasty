@@ -14,6 +14,13 @@ Tasty App is a fully functional Android app built entirely with Kotlin and Jetpa
     <img src="tasty_app.gif" width="270" height="606">
 </div>
 
+## Newly Added
+- [Recipe Tag As Filter](https://github.com/stevan-milovanovic/Tasty/pull/2)
+
+<p>
+    <img src="https://github.com/user-attachments/assets/43c7a1bf-f1ae-448f-ae05-bb1f2c2ec3c6" width="270" height="606">
+    <img src="https://github.com/user-attachments/assets/bb2d4b7c-52b6-4bad-8667-ac6bde0ee6e9" width="270" height="606">
+</p>
 
 ## Thanks To
 
