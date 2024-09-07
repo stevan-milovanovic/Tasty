@@ -2,6 +2,9 @@ package com.example.tasty.data.repository.recipe
 
 import androidx.paging.PagingData
 import com.example.tasty.data.local.model.Recipe
+import com.example.tasty.data.local.model.RecipeWithTags
+import com.example.tasty.data.local.model.Tag
+import com.example.tasty.data.local.model.TagWithRecipes
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -9,7 +12,9 @@ import kotlinx.coroutines.flow.Flow
  */
 interface RecipeRepository {
 
-    fun getRecipesPagedFlow(): Flow<PagingData<Recipe>>
+    fun getRecipesPagedFlow(recipeIds: List<Int>): Flow<PagingData<Recipe>>
 
-    fun getRecipeFlow(recipeId: Int): Flow<Recipe>
+    fun getRecipesForTagPagedFlow(tag: Tag?): Flow<PagingData<TagWithRecipes>>
+
+    fun getRecipeFlow(recipeId: Int): Flow<RecipeWithTags>
 }

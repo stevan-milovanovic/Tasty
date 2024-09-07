@@ -13,8 +13,10 @@
 	<string name="back">Back</string>
 	<string name="recipe_details">Recipe Details</string>
 	<string name="cooking_time">Cooking time</string>
+	<string name="cooking_tag">Cooking tag</string>
 	<string name="under_60_minutes">Under 60 minutes</string>
 	<string name="receipt_instruction">Receipt Instruction</string>
 	<string name="bookmark_recipe">Bookmark Recipe</string>
 	<string name="how_to_make_it">How to Make It?</string>
+	<string name="show_n_more_items">Show %1$s more</string>
 </resources>

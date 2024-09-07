@@ -4,12 +4,15 @@ import android.content.Context
 import androidx.room.Room
 import com.example.tasty.data.local.TastyDatabase
 import com.example.tasty.data.local.dao.RecipeDao
+import com.example.tasty.data.local.dao.TagDao
 import com.example.tasty.data.local.dao.UserDataDao
 import com.example.tasty.data.network.NetworkDataSource
 import com.example.tasty.data.network.NetworkMonitor
 import com.example.tasty.data.network.TastyRetrofit
 import com.example.tasty.data.repository.recipe.RecipeRepository
 import com.example.tasty.data.repository.recipe.RecipeRepositoryImpl
+import com.example.tasty.data.repository.tag.TagRepository
+import com.example.tasty.data.repository.tag.TagRepositoryImpl
 import com.example.tasty.data.repository.userData.UserDataRepository
 import com.example.tasty.data.repository.userData.UserDataRepositoryImpl
 import com.example.tasty.util.ConnectivityManagerNetworkMonitor
@@ -54,6 +57,9 @@ object DatabaseModule {
     fun provideRecipeDao(database: TastyDatabase): RecipeDao = database.recipeDao()
 
     @Provides
+    fun provideTagDao(database: TastyDatabase): TagDao = database.tagDao()
+
+    @Provides
     fun provideUserDataDao(database: TastyDatabase): UserDataDao = database.userDataDao()
 }
 
@@ -62,7 +68,11 @@ object DatabaseModule {
 abstract class RepositoryModule {
     @Singleton
     @Binds
-    abstract fun bindRecipesRepository(repository: RecipeRepositoryImpl): RecipeRepository
+    abstract fun bindRecipeRepository(repository: RecipeRepositoryImpl): RecipeRepository
+
+    @Singleton
+    @Binds
+    abstract fun bindTagRepository(repository: TagRepositoryImpl): TagRepository
 
     @Singleton
     @Binds

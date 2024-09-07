@@ -9,7 +9,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.tasty.ui.screen.bookmark.BookmarksScreen
 import com.example.tasty.ui.screen.bookmark.BookmarksViewModel
 
-const val BOOKMARKS_ROUTE = "bookmarks"
+private const val BOOKMARKS_ROUTE = "bookmarks"
 
 fun NavController.navigateToBookmarks(navOptions: NavOptions) =
     navigate(BOOKMARKS_ROUTE, navOptions)
@@ -21,7 +21,7 @@ fun NavGraphBuilder.bookmarksScreen(
         route = BOOKMARKS_ROUTE
     ) {
         val viewModel: BookmarksViewModel = hiltViewModel()
-        val recipesLazyPagingItems = viewModel.recipesPagingDataFlow.collectAsLazyPagingItems()
+        val recipesLazyPagingItems = viewModel.pagingDataFlow.collectAsLazyPagingItems()
         BookmarksScreen(
             recipesLazyPagingItems = recipesLazyPagingItems,
             onRecipeClick = onRecipeClick,

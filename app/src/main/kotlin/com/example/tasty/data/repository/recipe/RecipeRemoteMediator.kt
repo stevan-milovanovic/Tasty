@@ -1,7 +1,3 @@
-/*
- * Copyright © 2014-2024, TWINT AG.
- * All rights reserved.
-*/
 package com.example.tasty.data.repository.recipe
 
 import androidx.paging.ExperimentalPagingApi
@@ -10,7 +6,9 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.example.tasty.data.local.TastyDatabase
-import com.example.tasty.data.local.model.Recipe
+import com.example.tasty.data.local.model.RecipeTagCrossRef
+import com.example.tasty.data.local.model.Tag
+import com.example.tasty.data.local.model.TagWithRecipes
 import com.example.tasty.data.network.NetworkDataSource
 import retrofit2.HttpException
 import java.io.IOException
@@ -20,14 +18,20 @@ import javax.inject.Inject
 class RecipeRemoteMediator @Inject constructor(
     private val tastyDatabase: TastyDatabase,
     private val networkDataSource: NetworkDataSource
-) : RemoteMediator<Int, Recipe>() {
+) : RemoteMediator<Int, TagWithRecipes>() {
 
     private var remoteRecipesCount = Int.MAX_VALUE
     private var localRecipesCount = Int.MIN_VALUE
 
+    private var activeTag: Tag? = null
+
+    fun setActiveTag(tag: Tag) {
+        activeTag = tag
+    }
+
     override suspend fun load(
         loadType: LoadType,
-        state: PagingState<Int, Recipe>
+        state: PagingState<Int, TagWithRecipes>
     ): MediatorResult {
         return try {
             val from = when (loadType) {
@@ -45,15 +49,18 @@ class RecipeRemoteMediator @Inject constructor(
                 }
             }
 
-            val (remoteRecipesCount, remoteRecipes) = networkDataSource.getRecipes(from)
+            val (remoteRecipesCount, remoteRecipes) = networkDataSource.getRecipes(
+                from, activeTag?.name?.let { listOf(it) } ?: listOf()
+            )
             this@RecipeRemoteMediator.remoteRecipesCount = remoteRecipesCount
 
             tastyDatabase.withTransaction {
-                if (loadType == LoadType.REFRESH) {
-                    tastyDatabase.recipeDao().deleteAll()
-                }
                 val recipes = remoteRecipes.map { it.toLocal() }
                 tastyDatabase.recipeDao().upsertAll(recipes)
+                remoteRecipes.forEach { recipe ->
+                    val recipeTagsCrossRefs = recipe.tags.map { tag -> RecipeTagCrossRef(recipe.id, tag.id) }
+                    tastyDatabase.recipeDao().upsertRecipeTagsCrossRefs(recipeTagsCrossRefs)
+                }
                 localRecipesCount = tastyDatabase.recipeDao().getRecipesCount()
             }
 

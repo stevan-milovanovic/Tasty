@@ -28,11 +28,15 @@ fun TastyNavHost(
         forYouScreen(
             onRecipeClick = navController::navigateToRecipe
         )
+        forYouScreenWithTagId(
+            onRecipeClick = navController::navigateToRecipe
+        )
         bookmarksScreen(
             onRecipeClick = navController::navigateToRecipe
         )
         recipeScreen(
-            onBackClick = navController::popBackStack
+            onBackClick = navController::popBackStack,
+            onTagClick = { tagId -> appState.navigateToForYouWithTag(tagId) }
         )
     }
 }

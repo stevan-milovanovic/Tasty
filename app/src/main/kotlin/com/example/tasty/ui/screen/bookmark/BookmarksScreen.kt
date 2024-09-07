@@ -1,6 +1,9 @@
 package com.example.tasty.ui.screen.bookmark
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
@@ -24,35 +27,35 @@ fun BookmarksScreen(
 @Preview
 @Composable
 private fun RecipesListPreview() {
-    val testPagingData = PagingData.from(
-        listOf(
-            Recipe(
-                1,
-                "Tasty Recipe",
-                "Delicious meal",
-                "test",
-                "",
-                "",
-                "Under 30 minutes",
-                listOf()
-            ),
-            Recipe(
-                2,
-                "Tasty Recipe",
-                "Delicious meal",
-                "test",
-                "",
-                "",
-                "Under 30 minutes",
-                listOf()
-            )
+    val recipes = listOf(
+        Recipe(
+            1,
+            "Tasty Serbian Recipe",
+            "Delicious meal",
+            "test",
+            "",
+            "",
+            "Under 30 minutes",
+            listOf()
+        ),
+        Recipe(
+            2,
+            "Tasty Hungarian Recipe",
+            "Delicious meal",
+            "test",
+            "",
+            "",
+            "Under 30 minutes",
+            listOf()
         )
     )
-
+    val testPagingData = PagingData.from(recipes)
     TastyTheme {
-        BookmarksScreen(
-            recipesLazyPagingItems = flowOf(testPagingData).collectAsLazyPagingItems(),
-            onRecipeClick = {}
-        )
+        Column(Modifier.fillMaxWidth()) {
+            BookmarksScreen(
+                recipesLazyPagingItems = flowOf(testPagingData).collectAsLazyPagingItems(),
+                onRecipeClick = {}
+            )
+        }
     }
 }

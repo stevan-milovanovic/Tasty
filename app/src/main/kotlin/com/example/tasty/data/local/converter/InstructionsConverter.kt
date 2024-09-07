@@ -1,19 +1,33 @@
 package com.example.tasty.data.local.converter
 
 import androidx.room.TypeConverter
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.Types
 
 /**
  * Type converter for recipe instructions list
  */
 class InstructionsConverter {
 
-    companion object {
-        private const val SEPARATOR = "|"
-    }
+    private val moshi: Moshi = Moshi.Builder().build()
+    private val listType = Types.newParameterizedType(List::class.java, String::class.java)
+    private val adapter = moshi.adapter<List<String>>(listType)
 
     @TypeConverter
-    fun fromListToString(list: List<String>): String = list.joinToString(SEPARATOR)
+    fun fromJson(json: String?): List<String> = json?.let {
+        try {
+            adapter.fromJson(it) ?: emptyList()
+        } catch (e: Exception) {
+            emptyList()
+        }
+    } ?: emptyList()
 
     @TypeConverter
-    fun fromStringToList(data: String): List<String> = data.split(SEPARATOR)
+    fun toJson(list: List<String>?): String = list?.let {
+        try {
+            adapter.toJson(it)
+        } catch (e: Exception) {
+            ""
+        }
+    } ?: ""
 }

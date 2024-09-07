@@ -72,26 +72,29 @@ class TastyAppState(
      */
     fun navigateToTopLevelDestination(topLevelDestination: TopLevelDestination) {
         trace("Navigation: ${topLevelDestination.name}") {
-            val topLevelNavOptions = navOptions {
-                // Pop up to the start destination of the graph to
-                // avoid building up a large stack of destinations
-                // on the back stack as users select items
-                popUpTo(navController.graph.findStartDestination().id) {
-                    saveState = true
-                }
-                // Avoid multiple copies of the same destination when
-                // reselecting the same item
-                launchSingleTop = true
-                // Restore state when reselecting a previously selected item
-                restoreState = true
-            }
-
+            val topLevelNavOptions = getTopLevelNavOptions()
             when (topLevelDestination) {
-                TopLevelDestination.FOR_YOU -> navController.navigateToForYou(topLevelNavOptions)
-                TopLevelDestination.BOOKMARKS -> navController.navigateToBookmarks(
-                    topLevelNavOptions
-                )
+                TopLevelDestination.FOR_YOU -> navController.navigateToForYou(topLevelNavOptions, null)
+                TopLevelDestination.BOOKMARKS -> navController.navigateToBookmarks(topLevelNavOptions)
             }
         }
+    }
+
+    fun navigateToForYouWithTag(tagId: Int) {
+        trace("Navigate To For You With Tag: $tagId") {
+            navController.navigateToForYou(getTopLevelNavOptions(), tagId)
+        }
+    }
+
+    private fun getTopLevelNavOptions() = navOptions {
+        // Pop up to the start destination of the graph to
+        // avoid building up a large stack of destinations
+        // on the back stack as users select items
+        popUpTo(navController.graph.findStartDestination().id) {
+            saveState = true
+        }
+        // Avoid multiple copies of the same destination when
+        // reselecting the same item
+        launchSingleTop = true
     }
 }
