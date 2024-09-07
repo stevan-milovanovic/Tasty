@@ -3,7 +3,7 @@ package com.example.tasty.ui.screen.recipe
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.tasty.data.local.model.Recipe
+import com.example.tasty.data.local.model.RecipeWithTags
 import com.example.tasty.data.local.model.UserData
 import com.example.tasty.data.repository.recipe.RecipeRepository
 import com.example.tasty.data.repository.userData.UserDataRepository
@@ -27,13 +27,13 @@ class RecipeViewModel @Inject constructor(
 
 	private var recipeId: Int = recipeArgs.recipeId
 
-	private val recipeFlow: Flow<Recipe> = recipesRepository.getRecipeFlow(recipeId)
+	private val recipeFlow: Flow<RecipeWithTags> = recipesRepository.getRecipeFlow(recipeId)
 	private val userDataFlow: Flow<UserData?> = userDataRepository.getUserDataFlow()
 
-	val uiState = recipeFlow.combine(userDataFlow) { recipe, userData ->
+	val uiState = recipeFlow.combine(userDataFlow) { recipeWithTags, userData ->
 		if (userData != null) {
 			RecipeUiState.Success(
-				recipe = recipe,
+                recipeWithTags = recipeWithTags,
 				isRecipeBookmarked = userData.bookmarkedRecipes.contains(recipeId)
 			)
 		} else {
@@ -66,7 +66,7 @@ class RecipeViewModel @Inject constructor(
 
 sealed interface RecipeUiState {
 	data class Success(
-		val recipe: Recipe,
+		val recipeWithTags: RecipeWithTags,
 		val isRecipeBookmarked: Boolean
 	) : RecipeUiState
 

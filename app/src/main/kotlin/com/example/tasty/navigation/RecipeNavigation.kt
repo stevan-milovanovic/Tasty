@@ -33,7 +33,8 @@ fun NavController.navigateToRecipe(topicId: Int) {
 }
 
 fun NavGraphBuilder.recipeScreen(
-    onBackClick: () -> Unit
+    onBackClick: () -> Unit,
+    onTagClick: (Int) -> Unit,
 ) {
     composable(
         route = "$RECIPE_ROUTE/{$RECIPE_ID_ARG}",
@@ -49,6 +50,7 @@ fun NavGraphBuilder.recipeScreen(
             uiState = uiState,
             updateBookmarkedList = viewModel::updateBookmarkedList,
             onBackClick = onBackClick,
+            onTagClick = onTagClick
         )
     }
 }

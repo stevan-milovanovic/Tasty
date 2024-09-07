@@ -29,7 +29,7 @@ fun RecipesList(
     ) {
         items(
             count = recipesLazyPagingItems.itemCount,
-            key = recipesLazyPagingItems.itemKey { it.id },
+            key = recipesLazyPagingItems.itemKey { it.recipeId },
             contentType = recipesLazyPagingItems.itemContentType { "Recipes" }
         ) { index: Int ->
             val recipe = recipesLazyPagingItems[index]
@@ -37,6 +37,7 @@ fun RecipesList(
             if (recipe != null) {
                 RecipeCard(
                     recipe = recipe,
+                    tag = null,
                     onRecipeClick = onRecipeClick
                 )
             }

@@ -16,7 +16,8 @@ data class Recipe(
     val thumbnailUrl: String,
     @Json(name = "total_time_tier")
     val timeTier: TimeTier?,
-    val instructions: List<Instruction>?
+    val instructions: List<Instruction>?,
+    val tags: List<Tag>
 ) {
     fun toLocal(): Recipe = Recipe(
         id,

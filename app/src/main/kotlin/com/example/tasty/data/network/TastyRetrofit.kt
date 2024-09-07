@@ -2,6 +2,7 @@ package com.example.tasty.data.network
 
 import android.util.Log
 import com.example.tasty.data.network.model.Recipe
+import com.example.tasty.data.network.model.Tag
 import com.squareup.moshi.JsonClass
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -17,7 +18,12 @@ interface TastyNetworkApi {
     suspend fun getRecipes(
         @Query("from") from: Int,
         @Query("size") size: Int = DEFAULT_PAGE_SIZE,
+        @Query("tags") tags: String
     ): Response<NetworkResponse<Recipe>>
+
+    @GET(value = "tags/list")
+    suspend fun getTags(
+    ): Response<NetworkResponse<Tag>>
 }
 
 @JsonClass(generateAdapter = true)
@@ -38,9 +44,27 @@ class TastyRetrofit @Inject constructor(
         private const val TAG = "Tasty Network Layer"
     }
 
-    override suspend fun getRecipes(from: Int): Pair<Int, List<Recipe>> {
+    override suspend fun getRecipes(from: Int, tags: List<String>): Pair<Int, List<Recipe>> {
         return try {
-            val response = tastyNetworkApi.getRecipes(from)
+            val response = tastyNetworkApi.getRecipes(
+                from = from,
+                tags = tags.joinToString(",")
+            )
+            val result = response.body()
+            if (response.isSuccessful && result != null) {
+                (result.count to result.results)
+            } else {
+                (0 to listOf())
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Unexpected exception while trying to fetch recipes", e)
+            throw e
+        }
+    }
+
+    override suspend fun getTags(): Pair<Int, List<Tag>> {
+        return try {
+            val response = tastyNetworkApi.getTags()
             val result = response.body()
             if (response.isSuccessful && result != null) {
                 (result.count to result.results)

@@ -5,6 +5,9 @@ import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Upsert
 import com.example.tasty.data.local.model.Recipe
+import com.example.tasty.data.local.model.RecipeTagCrossRef
+import com.example.tasty.data.local.model.RecipeWithTags
+import com.example.tasty.data.local.model.TagWithRecipes
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -19,14 +22,20 @@ interface RecipeDao {
      * @param recipeId the recipe id.
      * @return the recipe with recipeId.
      */
-    @Query("SELECT * FROM recipe WHERE id = :recipeId")
-    fun observeById(recipeId: Int): Flow<Recipe>
+    @Query("SELECT * FROM recipe WHERE recipeId = :recipeId")
+    fun observeById(recipeId: Int): Flow<RecipeWithTags>
 
     /**
      * Load all recipes paged
      */
-    @Query("SELECT * FROM recipe")
-    fun loadAllRecipesPaged(): PagingSource<Int, Recipe>
+    @Query("SELECT * FROM recipe WHERE recipeId IN (:recipeIds)")
+    fun loadRecipesPaged(recipeIds: List<Int>): PagingSource<Int, Recipe>
+
+    /**
+     * Load all recipes for tag paged
+     */
+    @Query("SELECT * FROM recipeTag WHERE (:tagId IS NULL OR tagId = :tagId)")
+    fun loadAllRecipesForTagPaged(tagId: Int?): PagingSource<Int, TagWithRecipes>
 
     /**
      * Select a recipe by id.
@@ -34,14 +43,8 @@ interface RecipeDao {
      * @param recipeId the recipe id.
      * @return the recipe with recipeId.
      */
-    @Query("SELECT * FROM recipe WHERE id = :recipeId")
+    @Query("SELECT * FROM recipe WHERE recipeId = :recipeId")
     suspend fun getById(recipeId: Int): Recipe
-
-    /**
-     * Delete all recipes.
-     */
-    @Query("DELETE FROM recipe")
-    suspend fun deleteAll()
 
     /**
      * Insert or update recipes in the database. If a recipe already exists, replace it.
@@ -52,11 +55,19 @@ interface RecipeDao {
     suspend fun upsertAll(recipes: List<Recipe>)
 
     /**
+     * Insert or update recipes tags cross references in the database.
+     *
+     * @param recipesTags the recipes tags cross references to be inserted or updated.
+     */
+    @Upsert
+    suspend fun upsertRecipeTagsCrossRefs(recipesTags: List<RecipeTagCrossRef>)
+
+    /**
      * Check if [Recipe] table is empty
      */
     @Query("SELECT (SELECT COUNT(*) FROM recipe) == 0")
     fun isEmpty(): Boolean
 
-    @Query("SELECT COUNT(id) FROM recipe")
+    @Query("SELECT COUNT(recipeId) FROM recipe")
     fun getRecipesCount(): Int
 }
