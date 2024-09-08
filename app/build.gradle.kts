@@ -12,12 +12,12 @@ android {
         buildConfig = true
     }
     namespace = "com.example.tasty"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.tasty"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -71,6 +71,7 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
+    implementation ("androidx.compose.material3.adaptive:adaptive:1.1.0-alpha02")
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0")
     implementation("androidx.compose.material:material-icons-extended")
     //downloadable fonts
