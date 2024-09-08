@@ -15,6 +15,9 @@ Tasty App is a fully functional Android app built entirely with Kotlin and Jetpa
     <img src="tasty_app.gif" width="270" height="606">
     <img src="tags_contextual_flow_row.png" width="270" height="606">
 </p>
+<p>
+    <img src="tasty_tablet_onboarding.png" width="810" height="530">
+</p>
 <div align="center">
     
 </div>
@@ -30,6 +33,7 @@ updated to use latest tech stack in Android ecosystem. This project uses free [T
 App starts with [Onboarding screen](app/src/main/kotlin/com/example/tasty/ui/screen/onboarding/OnboardingScreen.kt), which can be further improved to better explain to a new user all possiblities within the app. Once user finishes with the Onboarding process, he lands on the [screen which shows all currently available recipes](app/src/main/kotlin/com/example/tasty/ui/screen/foryou/ForYouScreen.kt). Recipes are presented with the thumbnail, title and approximate cooking time. User can further explore the recipe by clicking on the [recipe card](app/src/main/kotlin/com/example/tasty/ui/recipe/RecipeCard.kt), which triggers navigation to the [recipe details screen](app/src/main/kotlin/com/example/tasty/ui/screen/recipe/RecipeScreen.kt). On this screen, user can see video tutorial, title, description, recipe keywords and detailed step by step instructions. Additionally, user can bookmark the recipe, to find it easier later on the [Bookmarks screen](app/src/main/kotlin/com/example/tasty/ui/screen/bookmark/BookmarksScreen.kt).
 
 - [Recipe Tag As Filter](https://github.com/stevan-milovanovic/Tasty/pull/2)
+- [Introduce Different Onboarding Layout for Tablet Landscape](https://github.com/stevan-milovanovic/Tasty/pull/3)
 
 
 ### Libraries
