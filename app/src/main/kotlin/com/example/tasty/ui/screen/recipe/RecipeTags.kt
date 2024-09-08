@@ -90,7 +90,7 @@ private fun OverflowItem(
         text = stringResource(R.string.show_n_more_items, remainingItemsCount),
         modifier = Modifier
             .background(
-                color = MaterialTheme.colorScheme.secondaryContainer,
+                color = MaterialTheme.colorScheme.tertiaryContainer,
                 shape = CircleShape
             )
             .padding(vertical = 4.dp, horizontal = 8.dp)
