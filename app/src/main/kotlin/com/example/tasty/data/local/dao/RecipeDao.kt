@@ -3,6 +3,7 @@ package com.example.tasty.data.local.dao
 import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Query
+import androidx.room.Transaction
 import androidx.room.Upsert
 import com.example.tasty.data.local.model.Recipe
 import com.example.tasty.data.local.model.RecipeTagCrossRef
@@ -22,6 +23,7 @@ interface RecipeDao {
      * @param recipeId the recipe id.
      * @return the recipe with recipeId.
      */
+    @Transaction
     @Query("SELECT * FROM recipe WHERE recipeId = :recipeId")
     fun observeById(recipeId: Int): Flow<RecipeWithTags>
 
@@ -34,6 +36,7 @@ interface RecipeDao {
     /**
      * Load all recipes for tag paged
      */
+    @Transaction
     @Query("SELECT * FROM recipeTag WHERE (:tagId IS NULL OR tagId = :tagId)")
     fun loadAllRecipesForTagPaged(tagId: Int?): PagingSource<Int, TagWithRecipes>
 

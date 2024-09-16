@@ -2,6 +2,7 @@ package com.example.tasty.data.local.model
 
 import androidx.room.Embedded
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.Junction
 import androidx.room.PrimaryKey
 import androidx.room.Relation
@@ -23,7 +24,10 @@ data class Recipe(
     val instructions: List<String>?
 )
 
-@Entity(primaryKeys = ["recipeId", "tagId"])
+@Entity(
+    primaryKeys = ["recipeId", "tagId"],
+    indices = [Index(value = ["tagId"])]
+)
 data class RecipeTagCrossRef(
     val recipeId: Int,
     val tagId: Int

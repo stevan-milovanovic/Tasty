@@ -21,7 +21,7 @@ import com.example.tasty.data.local.model.UserData
 @TypeConverters(InstructionsConverter::class, BookmarkedRecipesConverter::class)
 @Database(
     entities = [Recipe::class, UserData::class, Tag::class, RecipeTagCrossRef::class],
-    version = 7,
+    version = 8,
     exportSchema = false
 )
 abstract class TastyDatabase : RoomDatabase() {
