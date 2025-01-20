@@ -31,7 +31,7 @@ fun RecipeImage(
 
 @Preview(showSystemUi = true)
 @Composable
-fun RecipeImagePreview() {
+private fun RecipeImagePreview() {
     TastyTheme {
         RecipeImage(thumbnailUrl = "test")
     }
